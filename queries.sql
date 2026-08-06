@@ -36,9 +36,12 @@ LEFT JOIN Loans
 ON Members.MemberID = Loans.MemberID
 GROUP BY Members.MemberID;
 
--- Question 5: How many books are there in each genre?
+-- Question 5: Which authors have written more than one book?
 SELECT
-    Genre,
-    COUNT(*) AS TotalBooks
-FROM Books
-GROUP BY Genre;
+    Authors.Name,
+    COUNT(Books.BookID) AS TotalBooks
+FROM Authors
+JOIN Books
+ON Authors.AuthorID = Books.AuthorID
+GROUP BY Authors.Name
+HAVING COUNT(Books.BookID) > 1;
